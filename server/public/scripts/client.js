@@ -60,4 +60,4 @@ function saveKoala( newKoala ){
         alert('Error adding koala in client. Please try again later.')       
     });
 }
- 
+
