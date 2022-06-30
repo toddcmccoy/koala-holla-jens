@@ -46,3 +46,18 @@ function saveKoala( newKoala ){
   // ajax call to server to get koalas
  
 }
+
+function renderTable(response) {
+  
+  for (let koala of koalas) {
+    $('#viewKoalas').append(`
+    <tr>
+      <td>${koala.name}</td>
+      <td>${koala.age}</td>
+      <td>${koala.gender}</td>
+      <td>${koala.ready_for_transfer}</td>
+      <td>${koala.notes}</td>
+    </tr>
+  `)
+  }
+}

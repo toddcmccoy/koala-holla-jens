@@ -1,6 +1,5 @@
-const { Router } = require('express');
 const express = require('express');
-const koalaRouter = express.Router();
+const router = express.Router();
 
 const pool = require('../modules/pool');
 
@@ -28,4 +27,4 @@ router.get('/', (req, res) => {
 
 // DELETE
 
-module.exports = koalaRouter;
+module.exports = router;
