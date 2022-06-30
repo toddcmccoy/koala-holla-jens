@@ -50,7 +50,7 @@ function saveKoala( newKoala ){
     // Send the new koala to the server as data
     $.ajax({
         method: 'POST',
-        url: '/koala',
+        url: '/koalas',
         data: newKoala,
     }).then(function(response) {
         console.log(response);
