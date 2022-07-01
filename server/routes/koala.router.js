@@ -70,4 +70,20 @@ router.put('/:id', (req, res) => {
 
 // DELETE
 
+router.delete('/:id', (req, res) => {
+  let reqId = req.params.id;
+  console.log('This is the req.params.id', req.params.id);
+
+  let queryText = 'DELETE FROM koalas WHERE id = $1;';
+  pool.query(queryText, [reqId])
+    .then(() => {
+      console.log('Koala has vanished');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(`We made a booboo in router.delete`, error);
+      res.sendStatus(500);
+    })
+})
+
 module.exports = router;

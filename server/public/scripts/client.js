@@ -13,6 +13,7 @@ function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala);
   $('#viewKoalas').on('click', '.transfer', transferKoala);
     console.log( 'in addButton on click' );
+  $('#viewKoalas').on('click', '.delete-button', deleteKoala);
     // saveKoala() );
     // getKoalas();
     // get user input and put in an object
@@ -31,12 +32,13 @@ function setupClickListeners() {
 
 function getKoalas(){
   console.log( 'in getKoalas' );
+  $('#viewKoalas').empty();
   // ajax call to server to get koalas
   $.ajax ({
     url:'/koalas',
     method: 'GET'
   }).then((response) => {
-    console.log('reponse from GET:', response);
+    console.log('response from GET:', response);
     renderTable(response);
   }).catch((error)=> {
     console.log('error in GET:', error);
@@ -80,10 +82,31 @@ function renderTable(koalas) {
       <td>${koala.gender}</td>
       <td>${koala.ready_to_transfer}</td>
       <td>${koala.notes}</td>
+      <td>
+        <button data-id = ${koala.id} class = "delete-button" >Delete</button>
+      </td>
       <td><button data-status="${koala.ready_to_transfer}" data-id=${koala.id} class="button transfer" >Transfer</button></td>
     </tr>
   `)
   }
+}
+
+// function to delete koala
+function deleteKoala() {
+  let koalaId = $(this).data('id');
+
+  $.ajax({
+    method: 'DELETE',
+    url: `/koalas/${koalaId}`,
+    data: {id: koalaId}
+  }).then(function() {
+    console.log('Here');
+    // Once delete is sent, refresh the koala table
+    getKoalas()
+    // getKoalas();
+  }).catch(function(error) {
+    alert('Something went wrong in the DELETE /Koalas :(', error)
+  })
 }
 
 function transferKoala() {
