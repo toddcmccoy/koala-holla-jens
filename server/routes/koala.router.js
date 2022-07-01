@@ -39,7 +39,34 @@ router.post('/', (req, res) => {
 });
 
 // PUT
+router.put('/:id', (req, res) => {
+  let koalaId = req.params.id;
+  let koalaTransfer = req.body.status;
+  let queryText;
 
+  console.log( 'This is the put request', koalaTransfer);
+
+  if( koalaTransfer !== true){
+  queryText = 'UPDATE "koalas" SET "ready_to_transfer" = true WHERE id = $1;';
+  } else { res.sendStatus(500); 
+  }
+  pool.query(queryText, [koalaId])
+  .then((dbResponse) => {
+    res.send(dbResponse.rows);
+  })
+  .catch((error) => {
+    console.log(`ERROR IN ROUTER WITH UPDATING /PUT ${queryText} ${error}`);
+    res.sendStatus(500);
+  }) 
+})
+
+// logic for boolean compairison
+// let a = true;
+// let b = 'true'
+// let result = (b === 'true');
+// if (a == b);
+// console.log('this is boolean', a );
+// console.log('this is string', b);
 
 // DELETE
 
