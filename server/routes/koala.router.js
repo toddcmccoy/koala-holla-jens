@@ -1,3 +1,4 @@
+const {query} = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -19,8 +20,34 @@ router.get('/', (req, res) => {
     });
   });
 
-// POST
 
+
+
+
+
+
+
+
+
+
+
+// POST
+router.post('/', (req, res) => {
+    const newKoala = req.body;
+// message to the db as soon as the new data hits the database
+    const queryText = `
+        INSERT INTO "koalas" ("name", "gender", "age", "ready_to_tranfer", "notes")
+        VALUES ($1, $2, $3, $4, $5);
+        `;
+    pool.query(queryText,[newKoala.name, newKoala.gender, newKoala.age, newKoala.ready_to_tranfer, newKoala.notes])
+        .then((result) => {
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log( 'Error POSTing to db:', error);
+        res.sendStatus(500);
+    });
+});
 
 // PUT
 
