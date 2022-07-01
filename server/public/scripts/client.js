@@ -47,9 +47,10 @@ function saveKoala( newKoala ){
  
 }
 
-function renderTable(response) {
+function renderTable(koalas) {
   
-  for (let koala of koalas) {
+  for (let i=0; i < koalas.length; i += 1) {
+    let koala = koalas[i];
     $('#viewKoalas').append(`
     <tr>
       <td>${koala.name}</td>
