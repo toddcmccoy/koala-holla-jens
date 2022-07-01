@@ -1,3 +1,4 @@
+const {query} = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -9,8 +10,18 @@ const pool = require('../modules/pool');
 // GET
 
 
+
+
+
+
+
+
+
+
+
+
+
 // POST
-let koalaList = [];
 router.post('/', (req, res) => {
     const newKoala = req.body;
 // message to the db as soon as the new data hits the database
@@ -20,7 +31,6 @@ router.post('/', (req, res) => {
         `;
     pool.query(queryText,[newKoala.name, newKoala.gender, newKoala.age, newKoala.ready_to_tranfer, newKoala.notes])
         .then((result) => {
-        koalaList.push(req.body);
         res.sendStatus(201);
     })
     .catch((error) => {

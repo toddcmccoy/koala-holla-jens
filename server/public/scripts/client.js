@@ -27,6 +27,44 @@ function setupClickListeners() {
   }); 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
@@ -37,7 +75,7 @@ function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
   // Get info to send to the server
-    const newKoala = {
+    let newKoala = {
         name: $('#nameIn').val(), 
         gender: $('#genderIn').val(),
         age: $('#ageIn').val(),
