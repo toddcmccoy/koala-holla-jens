@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
         INSERT INTO "koalas" ("name", "gender", "age", "ready_to_transfer", "notes")
         VALUES ($1, $2, $3, $4, $5);
         `;
-    pool.query(queryText,[newKoala.name, newKoala.gender, newKoala.age, newKoala.ready_to_tranfer, newKoala.notes])
+    pool.query(queryText,[newKoala.name, newKoala.gender, newKoala.age, newKoala.ready_to_transfer, newKoala.notes])
         .then((result) => {
         res.sendStatus(201);
     })
@@ -42,5 +42,21 @@ router.post('/', (req, res) => {
 
 
 // DELETE
+
+router.delete('/:id', (req, res) => {
+  let reqId = req.params.id;
+  console.log('This is the req.params.id', req.params.id);
+
+  let queryText = 'DELETE FROM koalas WHERE id = $1;';
+  pool.query(queryText, [reqId])
+    .then(() => {
+      console.log('Koala has vanished');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(`We made a booboo in router.delete`, error);
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;
