@@ -11,6 +11,7 @@ $( document ).ready( function(){
 
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala);
+  $('#viewKoalas').on('click', '.transfer', transferKoala);
     console.log( 'in addButton on click' );
     // saveKoala() );
     // getKoalas();
@@ -50,7 +51,7 @@ function saveKoala(){
         name: $('#nameIn').val(), 
         age: $('#ageIn').val(),
         gender: $('#genderIn').val(),
-        ready_to_transfer: $('#readyToTransferIn').val(),
+        ready_to_transfer: $('#readyForTransferIn').val(),
         notes: $('#notesIn').val()
     };
     // Send the new koala to the server as data
@@ -77,10 +78,28 @@ function renderTable(koalas) {
       <td>${koala.name}</td>
       <td>${koala.age}</td>
       <td>${koala.gender}</td>
-      <td>${koala.ready_for_transfer}</td>
+      <td>${koala.ready_to_transfer}</td>
       <td>${koala.notes}</td>
+      <td><button data-status="${koala.ready_to_transfer}" data-id=${koala.id} class="button transfer" >Transfer</button></td>
     </tr>
   `)
   }
+}
+
+function transferKoala() {
+  let id = $(this).data('id');
+  let transferStatus = $(this).data('status');
+  console.log('this should be Koalas id:', id );
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${id}`,
+    data: {status: transferStatus}
+  })
+  .then(function() {
+    getKoalas();
+  })
+  .catch(function(error) {
+    alert('ERROR in TRANSFERKOALA FUNCTION IN CLIENT', error);
+  })
 }
 
