@@ -3,67 +3,30 @@ console.log( 'js' );
 $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
-  setupClickListeners()
+  setupClickListeners();
   // load existing koalas on page load
   getKoalas();
 
 }); // end doc ready
 
 function setupClickListeners() {
-  $( '#addButton' ).on( 'click', function(){
+  $( '#addButton' ).on( 'click', saveKoala);
     console.log( 'in addButton on click' );
+    // saveKoala() );
+    // getKoalas();
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
-    let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
-    };
-    // call saveKoala with the new obejct
-    saveKoala( koalaToSend );
-  }); 
+    // let koalaToSend = {
+    //   name: $('#nameIn').val(), 
+    //   age: $('#ageIn').val(),
+    //   gender: $('#genderIn').val(),
+    //   readyForTransfer:  $('#readyToTransgerIn').val(),
+    //   notes: $('#notesIn').val(),
+    // };
+    // // call saveKoala with the new obejct
+    // saveKoala( koalaToSend );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function getKoalas(){
   console.log( 'in getKoalas' );
@@ -79,20 +42,17 @@ function getKoalas(){
   })
 } // end getKoalas
 
-function saveKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
+function saveKoala(){
+  // console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
   // Get info to send to the server
-    let newKoala = {
+      let newKoala = {
         name: $('#nameIn').val(), 
-        gender: $('#genderIn').val(),
         age: $('#ageIn').val(),
-        ready_to_tranfer: $('#readyToTransgerIn').val(),
+        gender: $('#genderIn').val(),
+        ready_to_transfer: $('#readyToTransferIn').val(),
         notes: $('#notesIn').val()
     };
-
-    console.log('Adding koala in client', newKoala);
-
     // Send the new koala to the server as data
     $.ajax({
         method: 'POST',
@@ -105,6 +65,7 @@ function saveKoala( newKoala ){
         console.log('error in koala post', error); 
         alert('Error adding koala in client. Please try again later.')       
     });
+    console.log('Adding koala in client', newKoala);
 }
 
 function renderTable(koalas) {
